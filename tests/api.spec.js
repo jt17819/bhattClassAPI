@@ -3,15 +3,15 @@ const app = require('../app');
 
 describe('API server', () => {
     let api;
-    let testCat = {
-        id: 4,
+    let testStudent = {
+        // id: 19,
         name: 'Bob',
-        age: 3
+        age: 30
     }
 
     beforeAll(() => {
-        api = app.listen(3000, () => {
-            console.log('test server running on port 3000')
+        api = app.listen(5000, () => {
+            console.log('test server running on port 5000')
         })
     })
     afterAll((done) => {
@@ -22,31 +22,31 @@ describe('API server', () => {
     it('responds to get / with status of 200', (done) => {
         request(api).get('/').expect(200, done);
     });
-    it('responds to get /cats with status of 200', (done) => {
-        request(api).get('/cats').expect(200, done);
+    it('responds to get /bhatt with status of 200', (done) => {
+        request(api).get('/bhatt').expect(200, done);
     });
-    it('retrieves a cat by id', (done) => {
+    it('retrieves a student by id', (done) => {
         request(api)
-            .get('/cats/3')
+            .get('/bhatt/3')
             .expect(200)
-            .expect({id:3, name:'Rumble', age:12}, done)
+            .expect({id:3, name:'Brandon', age:24}, done)
     })
     //create new cat
-    it('responds to post /cats with status 201', (done) => {
+    it('responds to post /bhatt with status 201', (done) => {
         request(api)
-            .post('/cats')
-            .send(testCat)
+            .post('/bhatt')
+            .send(testStudent)
             .expect(201)
-            .expect({id:4, ...testCat})
+            .expect({id:19, ...testStudent})
     });
     //delete cat
-    it('responds to delete /cats/:id with status of 204', async() => {
+    it('responds to delete /bhatt/:id with status of 204', async() => {
         await request(api)
-            .delete('/cats/4')
+            .delete('/bhatt/19')
             .expect(204)
-        const updatedCats = await request(api)
-            .get('/cats');
+        const updatedStudent = await request(api)
+            .get('/bhatt');
         
-        expect(updatedCats.body.length).toBe(3);
+        expect(updatedStudent.body.length).toBe(18);
     })
 });

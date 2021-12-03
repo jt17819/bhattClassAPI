@@ -21,5 +21,4 @@ const bhatt =[
     {id:18, name:'Zain', age:22},
 ];
 
-
 module.exports = bhatt;
